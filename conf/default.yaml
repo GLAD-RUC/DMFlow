@@ -12,7 +12,7 @@ logging:
   # log frequency
   val_check_interval: 5
   wandb:
-    project: dmflow-release
+    project: dmflow
     entity: null
     log_model: False
     mode: 'online'
