@@ -1,7 +1,7 @@
 # DMFlow: Disordered Materials Generation by Flow Matching
 
 <div align="center">
-<a href="https://openreview.net/forum?id=kOVqhfeUgI"><img src="https://img.shields.io/badge/KDD%202026-AI%20for%20Sciences-0055A4.svg"></a>
+<a href="https://openreview.net/forum?id=kOVqhfeUgI"><img src="https://img.shields.io/badge/KDD%202026-AI%20for%20Science-0055A4.svg"></a>
 <a href="https://arxiv.org/abs/2602.04734"><img src="https://img.shields.io/badge/arXiv-2602.04734-b31b1b.svg"></a>
 <!-- <br> -->
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9%2B-3776AB.svg"></a>
