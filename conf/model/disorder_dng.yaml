@@ -1,0 +1,21 @@
+cost_coord: 400.0
+cost_lattice: 1.0
+cost_type: 2000.0
+cost_cross_ent: 0.0
+cost_pd_weight: 40.0
+cost_pd_frac_coords: 40.0
+
+affine_combine_costs: true
+target_distribution: unconditional
+self_cond: false
+emb_sd_info: true
+emb_pd_info: true
+
+manifold_getter:
+  atom_type_manifold: sphere_simplex
+  coord_manifold: flat_torus_01
+  lattice_manifold: lattice_params
+  weight_manifold: sphere_simplex
+  pd_frac_coords_manifold: ${model.manifold_getter.coord_manifold}
+  analog_bits_scale: 1.0
+  length_inner_coef: 1.0

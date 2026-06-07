@@ -1,0 +1,19 @@
+cost_coord: 400.0
+cost_lattice: 1.0
+cost_type: 0.0
+cost_pd_weight: 0.0
+cost_pd_frac_coords: 40.0
+
+affine_combine_costs: true
+target_distribution: conditional
+self_cond: false
+emb_sd_info: true
+emb_pd_info: true
+
+manifold_getter:
+  atom_type_manifold: null_manifold
+  coord_manifold: flat_torus_01
+  lattice_manifold: lattice_params
+  weight_manifold: null_manifold
+  pd_frac_coords_manifold: ${model.manifold_getter.coord_manifold}
+  length_inner_coef: 1.0

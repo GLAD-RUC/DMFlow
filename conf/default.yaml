@@ -1,0 +1,110 @@
+# metadata specialised for each experiment
+core:
+  version: ${get_dmflow_version:}
+  tags:
+    - ${now:%Y-%m-%d}
+
+hydra:
+  run:
+    dir: ./runs/${now:%Y-%m-%d}/${logging.wandb.name}/${now:%H-%M-%S}
+  
+logging:
+  # log frequency
+  val_check_interval: 5
+  wandb:
+    project: dmflow-release
+    entity: null
+    log_model: False
+    mode: 'online'
+    name: 'demo'
+    group: 'csp'
+
+  wandb_watch:
+    log: all
+    log_freq: 500
+
+  lr_monitor:
+    logging_interval: step
+    log_momentum: False
+
+## Checkpointing
+resume_from_checkpoint: False
+ckpt_path:
+
+optim:
+  # RFM
+  optimizer:
+    _target_: torch.optim.AdamW
+    lr: 0.0003
+    weight_decay: 0.0
+  lr_scheduler:
+    _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+    T_max: ${data.train_max_epochs}
+    eta_min: 1e-5
+  interval: epoch
+  ema_decay: 0.999
+
+train:
+  # reproducibility
+  deterministic: warn
+  random_seed: 42
+
+  # training
+  pl_trainer:
+    fast_dev_run: False # Enable this for debug purposes
+    strategy: ddp
+    # devices: auto
+    devices: 1
+    gpus: 1
+    # num_nodes: 1
+    accelerator: gpu
+    precision: 32
+    # max_steps: 10000
+    max_epochs: ${data.train_max_epochs}
+    accumulate_grad_batches: 1
+    log_every_n_steps: 1
+    num_sanity_val_steps: 1
+    gradient_clip_val: 0.5
+    gradient_clip_algorithm: value
+    profiler: simple
+
+  monitor_metric: "val/loss"  # "val/nll"
+  monitor_metric_mode: min
+
+  # early_stopping:
+  #   patience: ${data.early_stopping_patience}
+  #   verbose: False
+
+  model_checkpoints:
+    save_top_k: 1
+    verbose: False
+    save_last: True
+
+  # every_n_epochs_checkpoint:
+  #   every_n_epochs: 100
+  #   save_top_k: -1
+  #   verbose: False
+  #   save_last: True
+
+val:
+  compute_nll: false
+
+test:
+  compute_nll: false
+  compute_loss: true
+
+integrate:
+  div_mode: rademacher  # "exact" is an alternative
+  method: euler
+  num_steps: 1_000
+  normalize_loglik: True  # this is normalized by dimension
+  inference_anneal_slope: 0.0
+  inference_anneal_offset: 0.0
+
+defaults:
+  - _self_
+  - data: cod_sd_20
+  - model: disorder_csp
+  - vectorfield: rfm_cspnet
+
+base_distribution_from_data: False
