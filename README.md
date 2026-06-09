@@ -22,6 +22,8 @@ substitutional and positional disorder.
 ## Installation
 
 ```bash
+git clone https://github.com/GLAD-RUC/DMFlow.git
+cd DMFlow
 bash scripts/prepare_env.sh <env_name>
 conda activate <env_name>
 ```
@@ -66,6 +68,16 @@ dmflow/
 ```
 
 ## Data
+
+Dataset CSV files are tracked with [Git LFS](https://git-lfs.com/). If the
+CSV files were not downloaded during clone, install Git LFS first and then pull
+them inside the repository:
+
+```bash
+sudo apt install git-lfs
+git lfs install
+git lfs pull
+```
 
 The release configs use disorder datasets under `data/disorder/`:
 
